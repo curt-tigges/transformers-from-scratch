@@ -1,6 +1,7 @@
 import torch as t
 from torch.utils.data import Dataset
 import numpy as np
+import pickle
 
 class WordsDataset(Dataset):
     def __init__(self, seq_len, filename, tokenizer, truncate=None):
@@ -36,6 +37,10 @@ class WordsDataset(Dataset):
 from typing import Optional, Union
 import re
 
+from typing import Optional, Union
+import re
+import pickle
+
 class WordsTokenizer():
     model_max_length: int
 
@@ -44,15 +49,30 @@ class WordsTokenizer():
         self.id_word_map = dict()
         self.model_max_length = model_max_length
 
-    def build_dict(self, initial_text):
+    def build_dict(self, initial_text, save=False):
 
         split_text = re.split(r"\b", initial_text)
-        
 
         # create token id mapping
         unique_tokens = set(split_text)
         self.word_id_map = {word:id for id, word in enumerate(unique_tokens)}
         self.id_word_map = {id:word for word, id in self.word_id_map.items()}
+
+        if save:
+            file = open("word_id_map.pkl", "wb")
+            pickle.dump(self.word_id_map, file)
+            file.close()
+
+            file = open("id_word_map.pkl", "wb")
+            pickle.dump(self.id_word_map, file)
+            file.close()
+
+    def load_saved(self):
+        file = open("word_id_map.pkl", "rb")
+        self.word_id_map = pickle.load(file)
+
+        file = open("id_word_map.pkl", "rb")
+        self.id_word_map = pickle.load(file)
 
     def encode(self, text: str, return_tensors: Optional[str] = None) -> Union[list, t.Tensor]:
         '''
