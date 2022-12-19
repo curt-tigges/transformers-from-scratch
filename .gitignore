@@ -1,3 +1,7 @@
 .data/
+.devcontainer/
+.vscode/
 training/
 Miniconda3.sh
+old/
+whole-corpus-1-epoch.ckpt
