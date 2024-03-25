@@ -37,9 +37,6 @@ class Flatten(nn.Module):
 class Linear(nn.Module):
     def __init__(self, in_features: int, out_features: int, bias=True):
         """A simple linear (technically, affine) transformation.
-
-        The fields should be named `weight` and `bias` for compatibility with PyTorch.
-        If `bias` is False, set `self.bias` to None.
         """
         super().__init__()
         k = 1 / np.sqrt(in_features)

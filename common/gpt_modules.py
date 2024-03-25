@@ -12,7 +12,7 @@ from einops import rearrange, reduce, repeat
 
 @dataclass(frozen=True)
 class TransformerConfig:
-    '''Constants used throughout your decoder-only transformer model.'''
+    '''Constants used throughout the decoder-only transformer model.'''
 
     num_layers: int
     num_heads: int
