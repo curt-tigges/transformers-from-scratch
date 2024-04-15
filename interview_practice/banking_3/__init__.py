@@ -1,0 +1,3 @@
+users = {}
+accounts = {}
+transactions = {}
